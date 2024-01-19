@@ -7,11 +7,14 @@ Data Engineer -- Cribl
 Question 2 -- Consonant Substrings
 to execute:
 $ python substrings.py -s <str> -k <int>
+
+Assumption: lowercase and uppercase characters should be treated as different characters
+    i.e. aA != aa != AA != Aa
 """
 
 import argparse
 
-VOWELS = ['a', 'e', 'i', 'o', 'u']
+VOWELS = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
 
 
 def consonant_substrings_max_length(instr, k):
@@ -29,8 +32,8 @@ def consonant_substrings_max_length(instr, k):
     if not instr:
         return []
 
-    # case: string starts with vowel
-    if instr[0] in VOWELS:
+    # case: string starts vowel or non-alpha character
+    if not instr[0].isalpha() or instr[0] in VOWELS:
         if len(instr) > 1:
             return consonant_substrings_max_length(instr[1:], k)
         else:
@@ -41,9 +44,9 @@ def consonant_substrings_max_length(instr, k):
     substrings = [instr[0]]
     i = 1
 
-    # keep searching for longer consonant substrings until vowel is found or length k is reached
+    # keep searching for longer consonant substrings until vowel/non-alpha character is found or length k is reached
     while i < k and i < len(instr):
-        if instr[i] in VOWELS:
+        if not instr[i].isalpha() or instr[i] in VOWELS:
             break
 
         substrings.append(instr[:i+1])
