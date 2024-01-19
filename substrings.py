@@ -1,11 +1,13 @@
-# Jackson Beadle
-# January 19, 2024
-# Take Home Assestment
-# Data Engineer -- Cribl
+"""
+Jackson Beadle
+January 19, 2024
+Take Home Assessment
+Data Engineer -- Cribl
 
-# Question 2 -- Consonant Substrings
-# to execute: 
-# $ python substrings.py -s <str> -k <int>
+Question 2 -- Consonant Substrings
+to execute:
+$ python substrings.py -s <str> -k <int>
+"""
 
 import argparse
 
@@ -13,6 +15,15 @@ VOWELS = ['a', 'e', 'i', 'o', 'u']
 
 
 def consonant_substrings_max_length(instr, k):
+    """Function for finding all unique consonant substrings with length <= k.
+
+    :param instr: Input string
+    :type instr: str
+    :param k: Maximum length of consonant substrings to find
+    :type k: int
+    :return: List of consonant substrings
+    :rtype: list(str)
+    """
 
     # case: empty string
     if not instr:
@@ -40,16 +51,19 @@ def consonant_substrings_max_length(instr, k):
 
     # continue searching for substrings starting at the next letter, combining lists
     if len(instr) > 1:
-        return substrings + consonant_substrings_max_length(instr[1:], k)
+        # need to deduplicate list
+        return list(set(substrings + consonant_substrings_max_length(instr[1:], k)))
     else:
         return substrings
 
 
 if __name__ == '__main__':
 
+    # get the runtime arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--string', dest='str', default='')
     parser.add_argument('-k', '--substring-length', dest='k', default=1, type=int)
     args, unknown = parser.parse_known_args()
 
-    print(consonant_substrings_max_length(args.str, args.k))
+    # printing sorted list for readability
+    print(sorted(consonant_substrings_max_length(args.str, args.k)))
