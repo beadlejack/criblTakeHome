@@ -9,7 +9,7 @@ Question 3 -- API Interaction
 Assumptions:
 
 - API takes a 'page' parameter, will return empty response if page param is beyond total number of pages
-- data returned as JSON object with minimum structure:
+- data returned as JSON object (all string keys/values) with minimum structure:
 
     { "items": [
         {"title": value,

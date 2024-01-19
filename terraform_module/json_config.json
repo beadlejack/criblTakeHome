@@ -1,0 +1,78 @@
+{
+  "buckets": [
+    {
+      "name": "cribl-test-a"
+    },
+    {
+      "name": "cribl-test-b"
+    }
+  ],
+  "roles": [
+    {
+      "name": "cribl-role-a",
+      "assume_role_policy": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts.AssumeRole",
+            "Principal": {
+              "Service": "s3.amazonaws.com"
+            }
+          }
+        ]
+      },
+      "policy": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::cribl-test-a"
+          },
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject",
+              "s3:PutObject",
+              "s3:DeleteObject"
+            ],
+            "Resource": "arn:aws:s3:::cribl-test-a/*"
+          }
+      ]}
+    },
+    {
+      "name": "cribl-role-b",
+      "assume_role_policy": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "sts.AssumeRole",
+            "Principal": {
+              "Service": "s3.amazonaws.com"
+            }
+          }
+        ]
+      },
+      "policy": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::cribl-test-b"
+          },
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject",
+              "s3:PutObject",
+              "s3:DeleteObject"
+            ],
+            "Resource": "arn:aws:s3:::cribl-test-b"
+          }
+      ]}
+    }
+  ]
+}
